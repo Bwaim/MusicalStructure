@@ -29,7 +29,7 @@ public class MusicPagerAdapter extends FragmentPagerAdapter {
 
     private static final int M_NB_VIEWS = 2;
 
-    public MusicPagerAdapter(FragmentManager fm) {
+    MusicPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -48,6 +48,6 @@ public class MusicPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public Fragment getItem(int position) {
-        return null;
+        return AlbumFragment.newInstance();
     }
 }
