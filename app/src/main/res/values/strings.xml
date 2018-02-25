@@ -16,4 +16,6 @@
 
 <resources>
     <string name="app_name">MusicalStructure</string>
+    <string name="albums">albums</string>
+    <string name="artists">artists</string>
 </resources>

@@ -17,6 +17,7 @@
 package com.bwaim.musicalstructure;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
@@ -24,8 +25,9 @@ import com.bwaim.musicalstructure.Model.Album;
 
 public class MainActivity extends AppCompatActivity implements AlbumFragment.OnAlbumSelectedListener {
 
-    private MusicPagerAdapter mMusicPagerAdapter;
-    private ViewPager mViewPager;
+    private MusicPagerAdapter musicPagerAdapter;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
 
 
     @Override
@@ -33,9 +35,22 @@ public class MainActivity extends AppCompatActivity implements AlbumFragment.OnA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mMusicPagerAdapter = new MusicPagerAdapter(getSupportFragmentManager());
-        mViewPager = findViewById(R.id.pager);
-        mViewPager.setAdapter(mMusicPagerAdapter);
+        musicPagerAdapter = new MusicPagerAdapter(getSupportFragmentManager());
+        musicPagerAdapter.setPageTitles(initPagesTitles());
+
+        viewPager = findViewById(R.id.pager);
+        viewPager.setAdapter(musicPagerAdapter);
+
+        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+
+    }
+
+    private String[] initPagesTitles() {
+        String[] pageTitles = new String[MusicPagerAdapter.M_NB_VIEWS];
+        pageTitles[0] = getResources().getString(R.string.albums);
+        pageTitles[1] = getResources().getString(R.string.artists);
+        return pageTitles;
     }
 
     @Override

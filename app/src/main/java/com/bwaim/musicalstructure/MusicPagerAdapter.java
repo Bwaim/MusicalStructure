@@ -16,6 +16,7 @@
 
 package com.bwaim.musicalstructure;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -27,7 +28,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class MusicPagerAdapter extends FragmentPagerAdapter {
 
-    private static final int M_NB_VIEWS = 2;
+    static final int M_NB_VIEWS = 2;
+    private String[] pageTitles;
 
     MusicPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -49,5 +51,27 @@ public class MusicPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         return AlbumFragment.newInstance();
+    }
+
+    void setPageTitles(String[] pageTitles) {
+        this.pageTitles = pageTitles;
+    }
+
+    /**
+     * This method may be called by the ViewPager to obtain a title string
+     * to describe the specified page. This method may return null
+     * indicating no title for this page. The default implementation returns
+     * null.
+     *
+     * @param position The position of the title requested
+     * @return A title for the requested page
+     */
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        if (position < M_NB_VIEWS) {
+            return pageTitles[position];
+        }
+        return null;
     }
 }
