@@ -16,14 +16,23 @@
 
 package com.bwaim.musicalstructure;
 
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    private MusicPagerAdapter mMusicPagerAdapter;
+    private ViewPager mViewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*mMusicPagerAdapter = new MusicPagerAdapter(getSupportFragmentManager());
+        mViewPager = findViewById(R.id.pager);
+        mViewPager.setAdapter(mMusicPagerAdapter);*/
     }
 }
