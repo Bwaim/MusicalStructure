@@ -20,6 +20,9 @@
     android:name="com.bwaim.musicalstructure.AlbumFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:horizontalSpacing="@dimen/gridListPadding"
     android:numColumns="auto_fit"
+    android:padding="@dimen/gridListPadding"
+    android:verticalSpacing="@dimen/gridListPadding"
     tools:context="com.bwaim.musicalstructure.AlbumFragment"
     tools:listitem="@layout/fragment_album_item" />

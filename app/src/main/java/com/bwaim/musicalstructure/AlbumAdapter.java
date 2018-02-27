@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bwaim.musicalstructure.Model.Album;
@@ -54,6 +55,10 @@ public class AlbumAdapter extends ArrayAdapter<Album> {
         Album currentAlbum = getItem(position);
 
         if (currentAlbum != null) {
+            ImageView cover = listItemView.findViewById(R.id.cover);
+            cover.setImageResource(getContext().getResources().getIdentifier(
+                    currentAlbum.getCover(), "drawable", getContext().getPackageName()));
+
             TextView name = listItemView.findViewById(R.id.name);
             name.setText(currentAlbum.getName());
 

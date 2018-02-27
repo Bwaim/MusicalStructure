@@ -35,4 +35,16 @@
         <item name="android:textColor">@color/white70</item>
     </style>
 
+    <style name="itemStyle">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="itemStyle.First">
+        <item name="android:textSize">@dimen/itemFirstTextSize</item>
+    </style>
+
+    <style name="itemStyle.Second">
+        <item name="android:textSize">@dimen/itemSecondTextSize</item>
+    </style>
+
 </resources>

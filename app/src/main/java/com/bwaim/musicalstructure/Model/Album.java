@@ -27,11 +27,14 @@ public class Album {
 
     private String name;
     private String artist;
+    private String cover;
     private ArrayList<String> songs;
 
-    public Album(String name, String artist) {
+    public Album(String name, String artist, String cover) {
         this.name = name;
         this.artist = artist;
+        this.cover = cover;
+        songs = new ArrayList<>();
     }
 
     public void addSong(String song) {
@@ -60,5 +63,13 @@ public class Album {
 
     public void setSongs(ArrayList<String> songs) {
         this.songs = songs;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 }

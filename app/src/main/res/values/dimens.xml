@@ -15,6 +15,10 @@
   -->
 
 <resources>
-    <dimen name="text_margin">16dp</dimen>
     <dimen name="tabHeight">48dp</dimen>
+    <dimen name="itemTextsHeight">68dp</dimen>
+    <dimen name="itemTextPadding">16dp</dimen>
+    <dimen name="itemFirstTextSize">16sp</dimen>
+    <dimen name="itemSecondTextSize">12sp</dimen>
+    <dimen name="gridListPadding">4dp</dimen>
 </resources>

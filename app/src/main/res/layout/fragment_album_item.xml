@@ -14,31 +14,44 @@
   ~    limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/albumCover"
+        android:scaleType="fitCenter"
         tools:src="@drawable/mon_laferte_vol_1" />
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem"
-        tools:text="Album" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/itemTextsHeight"
+        android:layout_alignParentBottom="true"
+        android:background="@color/lightPrimaryColor"
+        android:orientation="vertical"
+        android:padding="@dimen/itemTextPadding">
 
-    <TextView
-        android:id="@+id/artist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem"
-        tools:text="Artist" />
-</LinearLayout>
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/itemStyle.First"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceListItem"
+            tools:text="Album" />
+
+        <TextView
+            android:id="@+id/artist"
+            style="@style/itemStyle.Second"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            tools:text="Artist" />
+
+    </LinearLayout>
+</RelativeLayout>

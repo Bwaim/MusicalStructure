@@ -44,8 +44,22 @@ public class DummyContent {
 
     static {
         // Add some sample items.
+        Album album = new Album("Mon Laferte, Vol 1", "Mon Laferte", "mon_laferte_vol_1");
+        album.addSong("Tormento");
+        album.addSong("El Cristal");
+        album.addSong("El Diablo");
+        album.addSong("La Visista");
+        album.addSong("Amor Completo");
+        album.addSong("Un Alma en Pena");
+        album.addSong("Tu Falta de Querer");
+        album.addSong("Salvador");
+        album.addSong("Si Tu Me Quisieras");
+        album.addSong("Malagradecido");
+        album.addSong("La Noche del Dia Que Llovio en Verano");
+
         for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
+//            addItem(createDummyItem(i));
+            addItem(album);
         }
     }
 
@@ -54,8 +68,9 @@ public class DummyContent {
 //        ITEM_MAP.put(item.id, item);
     }
 
+    @SuppressWarnings("unused")
     private static Album createDummyItem(int position) {
-        return new Album("Name " + position, "Artist " + position);
+        return new Album("Name " + position, "Artist " + position, "mon_laferte_vol_1");
     }
 
     @SuppressWarnings("unused")
