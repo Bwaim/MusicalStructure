@@ -23,8 +23,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.bwaim.musicalstructure.Model.Album;
+import com.bwaim.musicalstructure.Model.Artist;
 
-public class MainActivity extends AppCompatActivity implements AlbumFragment.OnAlbumSelectedListener {
+public class MainActivity extends AppCompatActivity
+        implements AlbumFragment.OnAlbumSelectedListener, ArtistFragment.OnArtistSelectedListener {
 
     private MusicPagerAdapter musicPagerAdapter;
     private ViewPager viewPager;
@@ -61,6 +63,11 @@ public class MainActivity extends AppCompatActivity implements AlbumFragment.OnA
 
     @Override
     public void onAlbumSelected(Album album) {
+
+    }
+
+    @Override
+    public void onArtistSelected(Artist artist) {
 
     }
 }

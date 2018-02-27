@@ -50,7 +50,13 @@ public class MusicPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public Fragment getItem(int position) {
-        return AlbumFragment.newInstance();
+        switch (position) {
+            case 0:
+                return AlbumFragment.newInstance();
+            case 1:
+                return ArtistFragment.newInstance();
+        }
+        return null;
     }
 
     void setPageTitles(String[] pageTitles) {
