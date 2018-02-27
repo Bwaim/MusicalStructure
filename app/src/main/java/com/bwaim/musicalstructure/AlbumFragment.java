@@ -70,8 +70,8 @@ public class AlbumFragment extends Fragment {
         // activity_numbers.xml layout file.
         GridView gridView = view.findViewById(R.id.list);
 
-        // Make the {@link ListView} use the {@link WordAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link Word} in the list.
+        // Make the {@link ListView} use the {@link AlbumAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link Album} in the list.
         gridView.setAdapter(adapter);
 
         return view;
