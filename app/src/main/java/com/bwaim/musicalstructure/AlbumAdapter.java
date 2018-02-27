@@ -63,7 +63,7 @@ public class AlbumAdapter extends ArrayAdapter<Album> {
             name.setText(currentAlbum.getName());
 
             TextView artist = listItemView.findViewById(R.id.artist);
-            artist.setText(currentAlbum.getArtist());
+            artist.setText(currentAlbum.getArtist().getName());
         }
 
         return listItemView;

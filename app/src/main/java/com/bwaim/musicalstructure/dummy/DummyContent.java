@@ -17,6 +17,7 @@
 package com.bwaim.musicalstructure.dummy;
 
 import com.bwaim.musicalstructure.Model.Album;
+import com.bwaim.musicalstructure.Model.Artist;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,8 @@ public class DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<Album> ITEMS = new ArrayList<>();
+    public static final List<Album> ITEMS_ALBUMS = new ArrayList<>();
+    public static final List<Artist> ITEMS_ARTISTS = new ArrayList<>();
 
     /**
      * A map of sample (dummy) items, by ID.
@@ -43,8 +45,11 @@ public class DummyContent {
     private static final int COUNT = 25;
 
     static {
+
+        Artist artist = new Artist("Mon Laferte", "mon_laferte");
+
         // Add some sample items.
-        Album album = new Album("Mon Laferte, Vol 1", "Mon Laferte", "mon_laferte_vol_1");
+        Album album = new Album("Mon Laferte, Vol 1", artist, "mon_laferte_vol_1");
         album.addSong("Tormento");
         album.addSong("El Cristal");
         album.addSong("El Diablo");
@@ -57,20 +62,25 @@ public class DummyContent {
         album.addSong("Malagradecido");
         album.addSong("La Noche del Dia Que Llovio en Verano");
 
+        artist.addAlbum(album);
+
         for (int i = 1; i <= COUNT; i++) {
 //            addItem(createDummyItem(i));
-            addItem(album);
+            addItem(album, artist);
         }
     }
 
-    private static void addItem(Album item) {
-        ITEMS.add(item);
+    private static void addItem(Album item, Artist artist) {
+        ITEMS_ALBUMS.add(item);
+        ITEMS_ARTISTS.add(artist);
 //        ITEM_MAP.put(item.id, item);
     }
 
     @SuppressWarnings("unused")
     private static Album createDummyItem(int position) {
-        return new Album("Name " + position, "Artist " + position, "mon_laferte_vol_1");
+        return new Album("Name " + position,
+                new Artist("Artist " + position, "mon_laferte"),
+                "mon_laferte_vol_1");
     }
 
     @SuppressWarnings("unused")

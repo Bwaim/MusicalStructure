@@ -63,7 +63,7 @@ public class AlbumFragment extends Fragment {
 
         // Create an {@link AlbumAdapter}, whose data source is a list of {@link Album}s. The
         // adapter knows how to create list items for each item in the list.
-        AlbumAdapter adapter = new AlbumAdapter(view.getContext(), DummyContent.ITEMS);
+        AlbumAdapter adapter = new AlbumAdapter(view.getContext(), DummyContent.ITEMS_ALBUMS);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
