@@ -19,4 +19,5 @@
     <string name="albums">albums</string>
     <string name="artists">artists</string>
     <string name="albumCover">cover of the album</string>
+    <string name="artistPhoto">photo of the artist</string>
 </resources>

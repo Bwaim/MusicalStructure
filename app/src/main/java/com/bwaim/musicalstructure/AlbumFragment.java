@@ -59,7 +59,7 @@ public class AlbumFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_album_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
 
         // Create an {@link AlbumAdapter}, whose data source is a list of {@link Album}s. The
         // adapter knows how to create list items for each item in the list.
