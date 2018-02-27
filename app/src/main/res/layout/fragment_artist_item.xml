@@ -29,7 +29,7 @@
         tools:src="@drawable/mon_laferte" />
 
     <TextView
-
+        android:id="@+id/name"
         style="@style/itemStyle.First"
         android:layout_width="match_parent"
         android:layout_height="@dimen/itemTextSimpleHeight"
