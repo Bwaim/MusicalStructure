@@ -19,7 +19,7 @@
     <dimen name="itemTextDoubleHeight">68dp</dimen>
     <dimen name="itemTextSimpleHeight">48dp</dimen>
     <dimen name="itemTextPadding">16dp</dimen>
-    <dimen name="itemFirstTextSize">16sp</dimen>
+    <dimen name="itemFirstTextSize">15sp</dimen>
     <dimen name="itemSecondTextSize">12sp</dimen>
     <dimen name="gridListPadding">4dp</dimen>
 </resources>
