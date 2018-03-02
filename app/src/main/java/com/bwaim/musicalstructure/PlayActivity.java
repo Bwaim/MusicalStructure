@@ -16,14 +16,47 @@
 
 package com.bwaim.musicalstructure;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
+
+import com.bwaim.musicalstructure.Model.Album;
+import com.bwaim.musicalstructure.Model.Artist;
+import com.bwaim.musicalstructure.Model.Song;
+
+import java.util.ArrayList;
 
 public class PlayActivity extends AppCompatActivity {
+
+    private Album selectedAlbum;
+    private Artist selectedArtist;
+    private ArrayList<Song> songs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        Intent intent = getIntent();
+        selectedAlbum = (Album) intent.getSerializableExtra(MainActivity.SELECTED_ALBUM);
+        selectedArtist = (Artist) intent.getSerializableExtra(MainActivity.SELECTED_ARTIST);
+
+        // We get all the songs to be played
+        if (selectedAlbum != null) {
+            songs = selectedAlbum.getSongs();
+        } else if (selectedArtist != null) {
+            songs = new ArrayList<>();
+
+            for (Album album : selectedArtist.getAlbums()) {
+                songs.addAll(album.getSongs());
+            }
+        }
+
+        ListView list = findViewById(R.id.list);
+        SongAdapter aongAdapter = new SongAdapter(this, songs);
+        list.setAdapter(aongAdapter);
+
     }
 }

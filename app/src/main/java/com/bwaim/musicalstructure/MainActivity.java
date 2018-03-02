@@ -29,6 +29,9 @@ import com.bwaim.musicalstructure.Model.Artist;
 public class MainActivity extends AppCompatActivity
         implements AlbumFragment.OnAlbumSelectedListener, ArtistFragment.OnArtistSelectedListener {
 
+    public static final String SELECTED_ALBUM = "SELECTED_ALBUM";
+    public static final String SELECTED_ARTIST = "SELECTED_ARTIST";
+
     private MusicPagerAdapter musicPagerAdapter;
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -65,12 +68,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onAlbumSelected(Album album) {
         Intent playActivity = new Intent(MainActivity.this, PlayActivity.class);
+        playActivity.putExtra(SELECTED_ALBUM, album);
         startActivity(playActivity);
     }
 
     @Override
     public void onArtistSelected(Artist artist) {
         Intent playActivity = new Intent(MainActivity.this, PlayActivity.class);
+        playActivity.putExtra(SELECTED_ARTIST, artist);
         startActivity(playActivity);
     }
 }

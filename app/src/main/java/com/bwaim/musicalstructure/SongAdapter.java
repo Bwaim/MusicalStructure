@@ -27,6 +27,8 @@ import android.widget.TextView;
 
 import com.bwaim.musicalstructure.Model.Song;
 
+import java.util.List;
+
 /**
  * Created by Fabien Boismoreau on 02/03/2018.
  * <p>
@@ -38,10 +40,10 @@ public class SongAdapter extends ArrayAdapter<Song> {
      * Constructor
      *
      * @param context The current context.
-     * @param objects The objects to represent in the ListView.
+     * @param songs The songs to represent in the ListView.
      */
-    public SongAdapter(@NonNull Context context, @NonNull Song[] objects) {
-        super(context, 0, objects);
+    SongAdapter(@NonNull Context context, @NonNull List<Song> songs) {
+        super(context, 0, songs);
     }
 
     @NonNull

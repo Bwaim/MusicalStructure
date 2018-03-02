@@ -16,6 +16,7 @@
 
 package com.bwaim.musicalstructure.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  * <p>
  */
 
-public class Album {
+public class Album implements Serializable {
 
     private String name;
     private Artist artist;

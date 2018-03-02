@@ -16,12 +16,14 @@
 
 package com.bwaim.musicalstructure.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Fabien Boismoreau on 02/03/2018.
  * <p>
  */
 
-public class Song {
+public class Song implements Serializable {
 
     private String name;
 
