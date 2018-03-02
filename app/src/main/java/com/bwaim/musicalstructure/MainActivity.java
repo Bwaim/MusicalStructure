@@ -16,6 +16,7 @@
 
 package com.bwaim.musicalstructure;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -63,11 +64,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onAlbumSelected(Album album) {
-
+        Intent playActivity = new Intent(MainActivity.this, PlayActivity.class);
+        startActivity(playActivity);
     }
 
     @Override
     public void onArtistSelected(Artist artist) {
-
+        Intent playActivity = new Intent(MainActivity.this, PlayActivity.class);
+        startActivity(playActivity);
     }
 }

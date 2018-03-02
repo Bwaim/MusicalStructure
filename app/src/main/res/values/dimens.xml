@@ -22,4 +22,5 @@
     <dimen name="itemFirstTextSize">15sp</dimen>
     <dimen name="itemSecondTextSize">12sp</dimen>
     <dimen name="gridListPadding">4dp</dimen>
+    <dimen name="zero">0dp</dimen>
 </resources>

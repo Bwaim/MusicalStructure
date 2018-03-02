@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.bwaim.musicalstructure.Model.Album;
@@ -73,6 +74,14 @@ public class AlbumFragment extends Fragment {
         // Make the {@link ListView} use the {@link AlbumAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link Album} in the list.
         gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Album selectedAlbum = DummyContent.ITEMS_ALBUMS.get(position);
+                mListener.onAlbumSelected(selectedAlbum);
+            }
+        });
 
         return view;
     }

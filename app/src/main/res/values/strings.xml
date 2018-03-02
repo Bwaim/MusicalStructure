@@ -20,4 +20,9 @@
     <string name="artists">artists</string>
     <string name="albumCover">cover of the album</string>
     <string name="artistPhoto">photo of the artist</string>
+    <string name="shuffle">shuffle</string>
+    <string name="previous">previous</string>
+    <string name="play">play</string>
+    <string name="next">next</string>
+    <string name="replay">replay</string>
 </resources>
