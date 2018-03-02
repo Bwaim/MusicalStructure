@@ -28,7 +28,7 @@ public class Album {
     private String name;
     private Artist artist;
     private String cover;
-    private ArrayList<String> songs;
+    private ArrayList<Song> songs;
 
     public Album(String name, Artist artist, String cover) {
         this.name = name;
@@ -37,7 +37,7 @@ public class Album {
         songs = new ArrayList<>();
     }
 
-    public void addSong(String song) {
+    public void addSong(Song song) {
         songs.add(song);
     }
 
@@ -57,11 +57,11 @@ public class Album {
         this.artist = artist;
     }
 
-    public ArrayList<String> getSongs() {
+    public ArrayList<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(ArrayList<String> songs) {
+    public void setSongs(ArrayList<Song> songs) {
         this.songs = songs;
     }
 

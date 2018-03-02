@@ -18,6 +18,7 @@ package com.bwaim.musicalstructure.dummy;
 
 import com.bwaim.musicalstructure.Model.Album;
 import com.bwaim.musicalstructure.Model.Artist;
+import com.bwaim.musicalstructure.Model.Song;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,17 +51,17 @@ public class DummyContent {
 
         // Add some sample items.
         Album album = new Album("Mon Laferte, Vol 1", artist, "mon_laferte_vol_1");
-        album.addSong("Tormento");
-        album.addSong("El Cristal");
-        album.addSong("El Diablo");
-        album.addSong("La Visista");
-        album.addSong("Amor Completo");
-        album.addSong("Un Alma en Pena");
-        album.addSong("Tu Falta de Querer");
-        album.addSong("Salvador");
-        album.addSong("Si Tu Me Quisieras");
-        album.addSong("Malagradecido");
-        album.addSong("La Noche del Dia Que Llovio en Verano");
+        album.addSong(new Song("Tormento", 0));
+        album.addSong(new Song("El Cristal", 0));
+        album.addSong(new Song("El Diablo", 0));
+        album.addSong(new Song("La Visista", 0));
+        album.addSong(new Song("Amor Completo", 0));
+        album.addSong(new Song("Un Alma en Pena", 0));
+        album.addSong(new Song("Tu Falta de Querer", 278));
+        album.addSong(new Song("Salvador", 0));
+        album.addSong(new Song("Si Tu Me Quisieras", 0));
+        album.addSong(new Song("Malagradecido", 0));
+        album.addSong(new Song("La Noche del Dia Que Llovio en Verano", 0));
 
         artist.addAlbum(album);
 
