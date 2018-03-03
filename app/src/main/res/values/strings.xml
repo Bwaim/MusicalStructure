@@ -25,4 +25,5 @@
     <string name="play">play</string>
     <string name="next">next</string>
     <string name="replay">replay</string>
+    <string name="gallery">Gallery</string>
 </resources>
