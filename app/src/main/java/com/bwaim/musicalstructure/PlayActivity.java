@@ -69,12 +69,15 @@ public class PlayActivity extends AppCompatActivity {
         // We get all the songs to be played
         if (selectedAlbum != null) {
             songs = selectedAlbum.getSongs();
+            setTitle(selectedAlbum.getName());
         } else if (selectedArtist != null) {
             songs = new ArrayList<>();
 
             for (Album album : selectedArtist.getAlbums()) {
                 songs.addAll(album.getSongs());
             }
+
+            setTitle(selectedArtist.getName());
         }
 
         final ListView list = findViewById(R.id.list);
