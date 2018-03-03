@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~    Copyright 2018 Fabien Boismoreau
   ~
   ~    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,17 +14,8 @@
   ~    limitations under the License.
   -->
 
-<resources>
-    <string name="app_name">MusicalStructure</string>
-    <string name="albums">albums</string>
-    <string name="artists">artists</string>
-    <string name="albumCover">cover of the album</string>
-    <string name="artistPhoto">photo of the artist</string>
-    <string name="shuffle">shuffle</string>
-    <string name="previous">previous</string>
-    <string name="play">play</string>
-    <string name="next">next</string>
-    <string name="replay">replay</string>
-    <string name="gallery">Gallery</string>
-    <string name="timeZero">00:00</string>
-</resources>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/colorAccent" android:state_selected="true" />
+    <item android:color="@android:color/white" />
+
+</selector>

@@ -52,11 +52,7 @@
         <item name="android:paddingEnd">@dimen/itemTextPadding</item>
         <item name="android:paddingTop">@dimen/itemTopPadding</item>
         <item name="android:textSize">@dimen/itemTextSize</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="SongItem.Selected">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@drawable/item_text_color_key</item>
     </style>
 
 </resources>

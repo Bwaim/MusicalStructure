@@ -23,6 +23,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -40,6 +41,9 @@ public class PlayActivity extends AppCompatActivity {
 
     private TextView elapsedTimeTV;
     private TextView remainingTimeTV;
+    private ImageView coverIV;
+    private ListView listLV;
+    private ImageView playStopIV;
 
     private Album selectedAlbum;
     private Artist selectedArtist;
@@ -61,15 +65,22 @@ public class PlayActivity extends AppCompatActivity {
         // Get all the necessary views
         elapsedTimeTV = findViewById(R.id.elapsedTime);
         remainingTimeTV = findViewById(R.id.remainingTime);
+        coverIV = findViewById(R.id.cover);
+        playStopIV = findViewById(R.id.playStopIcon);
 
+        // Get the information from the intent
         Intent intent = getIntent();
         selectedAlbum = (Album) intent.getSerializableExtra(MainActivity.SELECTED_ALBUM);
         selectedArtist = (Artist) intent.getSerializableExtra(MainActivity.SELECTED_ARTIST);
 
-        // We get all the songs to be played
+        // Get all the songs to be played, depending if we have an album or an artist
         if (selectedAlbum != null) {
             songs = selectedAlbum.getSongs();
+
             setTitle(selectedAlbum.getName());
+
+            coverIV.setImageResource(getResources().getIdentifier(
+                    selectedAlbum.getCover(), "drawable", getPackageName()));
         } else if (selectedArtist != null) {
             songs = new ArrayList<>();
 
@@ -78,20 +89,23 @@ public class PlayActivity extends AppCompatActivity {
             }
 
             setTitle(selectedArtist.getName());
+
+            coverIV.setImageResource(getResources().getIdentifier(
+                    selectedArtist.getPhoto(), "drawable", getPackageName()));
         }
 
-        final ListView list = findViewById(R.id.list);
+        // Fill the list of songs
+        listLV = findViewById(R.id.list);
         SongAdapter songAdapter = new SongAdapter(this, songs);
-        list.setAdapter(songAdapter);
+        listLV.setAdapter(songAdapter);
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectSong((Song) list.getItemAtPosition(position));
+                selectSong((Song) parent.getItemAtPosition(position));
+                view.setSelected(true);
             }
         });
-
-        selectSong((Song) list.getItemAtPosition(0));
 
     }
 
@@ -131,5 +145,6 @@ public class PlayActivity extends AppCompatActivity {
         long durationMS = selection.getDuration() * TIMER_INTERVAL;
         countDownTimer = initCountDownTimer(durationMS);
         countDownTimer.onTick(durationMS);
+
     }
 }
