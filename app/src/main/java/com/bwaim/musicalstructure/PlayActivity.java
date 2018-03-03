@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bwaim.musicalstructure.Model.Album;
@@ -44,11 +45,14 @@ public class PlayActivity extends AppCompatActivity {
     private ImageView coverIV;
     private ListView listLV;
     private ImageView playStopIV;
+    private SeekBar seekBar;
 
     private Album selectedAlbum;
     private Artist selectedArtist;
     private ArrayList<Song> songs;
     private Song currentSong;
+    private boolean isPlaying;
+    private long remainingTime;
 
     private CountDownTimer countDownTimer;
 
@@ -67,11 +71,16 @@ public class PlayActivity extends AppCompatActivity {
         remainingTimeTV = findViewById(R.id.remainingTime);
         coverIV = findViewById(R.id.cover);
         playStopIV = findViewById(R.id.playStopIcon);
+        seekBar = findViewById(R.id.seekBar);
 
         // Get the information from the intent
         Intent intent = getIntent();
         selectedAlbum = (Album) intent.getSerializableExtra(MainActivity.SELECTED_ALBUM);
         selectedArtist = (Artist) intent.getSerializableExtra(MainActivity.SELECTED_ARTIST);
+
+        // Init variables
+        currentSong = null;
+        isPlaying = false;
 
         // Get all the songs to be played, depending if we have an album or an artist
         if (selectedAlbum != null) {
@@ -99,6 +108,7 @@ public class PlayActivity extends AppCompatActivity {
         SongAdapter songAdapter = new SongAdapter(this, songs);
         listLV.setAdapter(songAdapter);
 
+        // Set the listeners
         listLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -106,6 +116,73 @@ public class PlayActivity extends AppCompatActivity {
                 view.setSelected(true);
             }
         });
+
+        playStopIV.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Called when a view has been clicked.
+             *
+             * @param v The view that was clicked.
+             */
+            @Override
+            public void onClick(View v) {
+                play();
+            }
+        });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            /**
+             * Notification that the progress level has changed. Clients can use the fromUser parameter
+             * to distinguish user-initiated changes from those that occurred programmatically.
+             *
+             * @param seekBar  The SeekBar whose progress has changed
+             * @param progress The current progress level.
+             * @param fromUser True if the progress change was initiated by the user.
+             */
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // if a song is selected
+                if (currentSong != null) {
+                    remainingTime = (currentSong.getDuration() - seekBar.getProgress())
+                            * TIMER_INTERVAL;
+                    refreshTime();
+                }
+            }
+
+            /**
+             * Notification that the user has started a touch gesture. Clients may want to use this
+             * to disable advancing the seekbar.
+             *
+             * @param seekBar The SeekBar in which the touch gesture began
+             */
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // if a song is selected
+                if (currentSong != null) {
+                    countDownTimer.cancel();
+                }
+            }
+
+            /**
+             * Notification that the user has finished a touch gesture. Clients may want to use this
+             * to re-enable advancing the seekbar.
+             *
+             * @param seekBar The SeekBar in which the touch gesture began
+             */
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // if a song is selected
+                if (currentSong != null) {
+                    countDownTimer = initCountDownTimer((currentSong.getDuration() -
+                            seekBar.getProgress()) * TIMER_INTERVAL);
+                    countDownTimer.onTick(remainingTime);
+                    if (isPlaying) {
+                        countDownTimer.start();
+                    }
+                }
+            }
+        });
+        //
+        seekBar.setMax(0);
 
     }
 
@@ -117,19 +194,17 @@ public class PlayActivity extends AppCompatActivity {
      */
     private CountDownTimer initCountDownTimer(final long duration) {
 
+        remainingTime = duration;
+
         return new CountDownTimer(duration, TIMER_INTERVAL) {
 
             public void onTick(long millisUntilFinished) {
-                // Display the remaining time of the song
-                long minutes = millisUntilFinished / 1000 / 60;
-                remainingTimeTV.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes,
-                        (millisUntilFinished - (minutes * 60 * 1000)) / 1000));
+                remainingTime = millisUntilFinished;
 
-                // Display the elapsed time of the song
-                long elapsedTime = currentSong.getDuration() - (millisUntilFinished / TIMER_INTERVAL);
-                minutes = elapsedTime / 60;
-                elapsedTimeTV.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes,
-                        (elapsedTime - (minutes * 60))));
+                refreshTime();
+
+                // Update the seekBar
+                seekBar.setProgress(currentSong.getDuration() - (int) (millisUntilFinished / TIMER_INTERVAL));
             }
 
             public void onFinish() {
@@ -138,6 +213,27 @@ public class PlayActivity extends AppCompatActivity {
         };
     }
 
+    /**
+     * Refresh the display of the time
+     */
+    private void refreshTime() {
+        // Display the remaining time of the song
+        long minutes = remainingTime / 1000 / 60;
+        remainingTimeTV.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes,
+                (remainingTime - (minutes * 60 * 1000)) / 1000));
+
+        // Display the elapsed time of the song
+        long elapsedTime = currentSong.getDuration() - (remainingTime / TIMER_INTERVAL);
+        minutes = elapsedTime / 60;
+        elapsedTimeTV.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes,
+                (elapsedTime - (minutes * 60))));
+    }
+
+    /**
+     * Select the song to play
+     *
+     * @param selection the selected song
+     */
     private void selectSong(Song selection) {
         currentSong = selection;
 
@@ -146,5 +242,23 @@ public class PlayActivity extends AppCompatActivity {
         countDownTimer = initCountDownTimer(durationMS);
         countDownTimer.onTick(durationMS);
 
+        // initialization of the seekBar
+        seekBar.setMax(selection.getDuration());
+        seekBar.setProgress(0);
+
+    }
+
+    void play() {
+
+        if (isPlaying) {
+            playStopIV.setImageResource(R.drawable.ic_play_circle_filled);
+            countDownTimer.cancel();
+        } else {
+            playStopIV.setImageResource(R.drawable.ic_pause_circle_filled);
+            countDownTimer = initCountDownTimer(remainingTime);
+            countDownTimer.start();
+        }
+
+        isPlaying = !isPlaying;
     }
 }
