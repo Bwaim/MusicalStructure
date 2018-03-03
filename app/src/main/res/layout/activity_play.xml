@@ -24,7 +24,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero"
-        android:layout_weight="6">
+        android:layout_weight="4">
 
         <ImageView
             android:id="@+id/cover"
@@ -41,6 +41,9 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/lightPrimaryColor"
+            android:paddingBottom="@dimen/listTopBottomPadding"
+            android:paddingTop="@dimen/listTopBottomPadding"
             tools:listitem="@layout/song_item" />
 
     </RelativeLayout>
@@ -48,18 +51,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:paddingBottom="@dimen/listTopBottomPadding"
+        android:paddingEnd="@dimen/itemTextPadding"
+        android:paddingStart="@dimen/itemTextPadding"
+        android:paddingTop="@dimen/listTopBottomPadding">
 
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/listTopBottomPadding"
+            android:paddingTop="@dimen/listTopBottomPadding"
             android:stretchColumns="1">
 
             <TableRow tools:ignore="UselessParent">
 
                 <TextView
-                    android:id="@+id/startTime"
+                    android:id="@+id/elapsedTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -71,7 +80,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/totalTime"
+                    android:id="@+id/remainingTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="03:00" />

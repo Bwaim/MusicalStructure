@@ -51,17 +51,17 @@ public class DummyContent {
 
         // Add some sample items.
         Album album = new Album("Mon Laferte, Vol 1", artist, "mon_laferte_vol_1");
-        album.addSong(new Song("Tormento", 0));
-        album.addSong(new Song("El Cristal", 0));
-        album.addSong(new Song("El Diablo", 0));
-        album.addSong(new Song("La Visista", 0));
-        album.addSong(new Song("Amor Completo", 0));
-        album.addSong(new Song("Un Alma en Pena", 0));
+        album.addSong(new Song("Tormento", 276));
+        album.addSong(new Song("El Cristal", 180));
+        album.addSong(new Song("El Diablo", 242));
+        album.addSong(new Song("La Visista", 226));
+        album.addSong(new Song("Amor Completo", 241));
+        album.addSong(new Song("Un Alma en Pena", 142));
         album.addSong(new Song("Tu Falta de Querer", 278));
-        album.addSong(new Song("Salvador", 0));
-        album.addSong(new Song("Si Tu Me Quisieras", 0));
-        album.addSong(new Song("Malagradecido", 0));
-        album.addSong(new Song("La Noche del Dia Que Llovio en Verano", 0));
+        album.addSong(new Song("Salvador", 200));
+        album.addSong(new Song("Si Tu Me Quisieras", 202));
+        album.addSong(new Song("Malagradecido", 187));
+        album.addSong(new Song("La Noche del Dia Que Llovio en Verano", 56));
 
         artist.addAlbum(album);
 

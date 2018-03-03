@@ -23,7 +23,7 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
-        style="@style/myTabLayout"
+        style="@style/MyTabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tabHeight"
         android:background="@android:color/white">

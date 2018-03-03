@@ -30,7 +30,7 @@
 
     <TextView
         android:id="@+id/name"
-        style="@style/itemStyle.First"
+        style="@style/ItemStyle.First"
         android:layout_width="match_parent"
         android:layout_height="@dimen/itemTextSimpleHeight"
         android:layout_alignParentBottom="true"

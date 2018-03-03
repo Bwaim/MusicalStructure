@@ -23,4 +23,7 @@
     <dimen name="itemSecondTextSize">12sp</dimen>
     <dimen name="gridListPadding">4dp</dimen>
     <dimen name="zero">0dp</dimen>
+    <dimen name="listTopBottomPadding">8dp</dimen>
+    <dimen name="itemTopPadding">8dp</dimen>
+    <dimen name="itemTextSize">16sp</dimen>
 </resources>

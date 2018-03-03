@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.bwaim.musicalstructure.Model.Artist;
@@ -78,6 +79,14 @@ public class ArtistFragment extends Fragment {
         // Make the {@link ListView} use the {@link ArtistAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link Artist} in the list.
         gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Artist selectedArtist = DummyContent.ITEMS_ARTISTS.get(position);
+                mListener.onArtistSelected(selectedArtist);
+            }
+        });
 
         return view;
     }
