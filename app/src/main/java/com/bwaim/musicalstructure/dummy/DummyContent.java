@@ -57,7 +57,7 @@ public class DummyContent {
         album.addSong(new Song("La Visista", 226));
         album.addSong(new Song("Amor Completo", 241));
         album.addSong(new Song("Un Alma en Pena", 142));
-        album.addSong(new Song("Tu Falta de Querer", 278));
+        album.addSong(new Song("Tu Falta de Querer", 278, "mon_laferte_-tu_falta_de_querer"));
         album.addSong(new Song("Salvador", 200));
         album.addSong(new Song("Si Tu Me Quisieras", 202));
         album.addSong(new Song("Malagradecido", 187));

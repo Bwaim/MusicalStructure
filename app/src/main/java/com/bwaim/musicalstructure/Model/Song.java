@@ -27,6 +27,8 @@ public class Song implements Serializable {
 
     private String name;
 
+    private String mediaFile;
+
     /**
      * duration of the song in seconds
      */
@@ -34,6 +36,13 @@ public class Song implements Serializable {
 
     public Song(String name, int duration) {
         this.name = name;
+        this.duration = duration;
+        this.mediaFile = null;
+    }
+
+    public Song(String name, int duration, String mediaFile) {
+        this.name = name;
+        this.mediaFile = mediaFile;
         this.duration = duration;
     }
 
@@ -51,5 +60,13 @@ public class Song implements Serializable {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public String getMediaFile() {
+        return mediaFile;
+    }
+
+    public void setMediaFile(String mediaFile) {
+        this.mediaFile = mediaFile;
     }
 }
