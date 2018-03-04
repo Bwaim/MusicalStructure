@@ -22,6 +22,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -46,6 +47,7 @@ public class PlayActivity extends AppCompatActivity {
     private ListView listLV;
     private ImageView playStopIV;
     private SeekBar seekBar;
+    private ImageView nextIconIV;
 
     private Album selectedAlbum;
     private Artist selectedArtist;
@@ -72,6 +74,7 @@ public class PlayActivity extends AppCompatActivity {
         coverIV = findViewById(R.id.cover);
         playStopIV = findViewById(R.id.playStopIcon);
         seekBar = findViewById(R.id.seekBar);
+        nextIconIV = findViewById(R.id.nextIcon);
 
         // Get the information from the intent
         Intent intent = getIntent();
@@ -81,6 +84,7 @@ public class PlayActivity extends AppCompatActivity {
         // Init variables
         currentSong = null;
         isPlaying = false;
+        countDownTimer = initCountDownTimer(0);
 
         // Get all the songs to be played, depending if we have an album or an artist
         if (selectedAlbum != null) {
@@ -107,6 +111,9 @@ public class PlayActivity extends AppCompatActivity {
         listLV = findViewById(R.id.list);
         SongAdapter songAdapter = new SongAdapter(this, songs);
         listLV.setAdapter(songAdapter);
+        listLV.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+
+        selectSong((Song) listLV.getItemAtPosition(0));
 
         // Set the listeners
         listLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -125,7 +132,7 @@ public class PlayActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View v) {
-                play();
+                playPause();
             }
         });
 
@@ -140,12 +147,10 @@ public class PlayActivity extends AppCompatActivity {
              */
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                // if a song is selected
-                if (currentSong != null) {
-                    remainingTime = (currentSong.getDuration() - seekBar.getProgress())
-                            * TIMER_INTERVAL;
-                    refreshTime();
-                }
+                remainingTime = (currentSong.getDuration() - seekBar.getProgress())
+                        * TIMER_INTERVAL;
+                refreshTime();
+
             }
 
             /**
@@ -156,10 +161,7 @@ public class PlayActivity extends AppCompatActivity {
              */
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                // if a song is selected
-                if (currentSong != null) {
-                    countDownTimer.cancel();
-                }
+                countDownTimer.cancel();
             }
 
             /**
@@ -170,19 +172,21 @@ public class PlayActivity extends AppCompatActivity {
              */
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // if a song is selected
-                if (currentSong != null) {
-                    countDownTimer = initCountDownTimer((currentSong.getDuration() -
-                            seekBar.getProgress()) * TIMER_INTERVAL);
-                    countDownTimer.onTick(remainingTime);
-                    if (isPlaying) {
-                        countDownTimer.start();
-                    }
+                countDownTimer = initCountDownTimer((currentSong.getDuration() -
+                        seekBar.getProgress()) * TIMER_INTERVAL);
+                countDownTimer.onTick(remainingTime);
+                if (isPlaying) {
+                    countDownTimer.start();
                 }
             }
         });
-        //
-        seekBar.setMax(0);
+
+        nextIconIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextSong();
+            }
+        });
 
     }
 
@@ -208,7 +212,7 @@ public class PlayActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-                //TODO
+                nextSong();
             }
         };
     }
@@ -223,7 +227,7 @@ public class PlayActivity extends AppCompatActivity {
                 (remainingTime - (minutes * 60 * 1000)) / 1000));
 
         // Display the elapsed time of the song
-        long elapsedTime = currentSong.getDuration() - (remainingTime / TIMER_INTERVAL);
+        long elapsedTime = currentSong.getDuration() - (remainingTime / 1000);
         minutes = elapsedTime / 60;
         elapsedTimeTV.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes,
                 (elapsedTime - (minutes * 60))));
@@ -237,6 +241,8 @@ public class PlayActivity extends AppCompatActivity {
     private void selectSong(Song selection) {
         currentSong = selection;
 
+        countDownTimer.cancel();
+
         // initialization of the elapsed time of the current song
         long durationMS = selection.getDuration() * TIMER_INTERVAL;
         countDownTimer = initCountDownTimer(durationMS);
@@ -246,9 +252,15 @@ public class PlayActivity extends AppCompatActivity {
         seekBar.setMax(selection.getDuration());
         seekBar.setProgress(0);
 
+        if (isPlaying) {
+            countDownTimer.start();
+        }
     }
 
-    void play() {
+    /**
+     * Play or pause the current song
+     */
+    private void playPause() {
 
         if (isPlaying) {
             playStopIV.setImageResource(R.drawable.ic_play_circle_filled);
@@ -260,5 +272,51 @@ public class PlayActivity extends AppCompatActivity {
         }
 
         isPlaying = !isPlaying;
+    }
+
+    /**
+     * Select the next song
+     */
+    private void nextSong() {
+        int currentPosition = songs.indexOf(currentSong);
+
+        // Deselect the current item
+        int firstDisplayedPosition = listLV.getFirstVisiblePosition();
+        listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(false);
+
+        currentPosition++;
+        if (currentPosition == songs.size()) {
+            currentPosition = 0;
+            firstDisplayedPosition = 0;
+            listLV.setSelectionAfterHeaderView();
+        }
+
+        selectSong((Song) listLV.getItemAtPosition(currentPosition));
+
+        listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(true);
+        listLV.smoothScrollToPosition(currentPosition + 5 - firstDisplayedPosition);
+    }
+
+    /**
+     * Select the previous song
+     */
+    private void previousSong() {
+        int currentPosition = songs.indexOf(currentSong);
+
+        // Deselect the current item
+        int firstDisplayedPosition = listLV.getFirstVisiblePosition();
+        listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(false);
+
+        currentPosition--;
+        if (currentPosition == -1) {
+            currentPosition = songs.size() - 1;
+            listLV.smoothScrollToPosition(currentPosition);
+            firstDisplayedPosition = listLV.getFirstVisiblePosition();
+        }
+
+        selectSong((Song) listLV.getItemAtPosition(currentPosition));
+
+        listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(true);
+        listLV.smoothScrollToPosition(currentPosition - 5 - firstDisplayedPosition);
     }
 }
