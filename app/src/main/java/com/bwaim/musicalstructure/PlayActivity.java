@@ -250,7 +250,9 @@ public class PlayActivity extends AppCompatActivity {
         final Bundle bundle = new Bundle();
 
         bundle.putInt(MainActivity.SELECTED_TAB, parentTab);
-        intent.putExtras(bundle);
+        if (intent != null) {
+            intent.putExtras(bundle);
+        }
 
         return intent;
     }

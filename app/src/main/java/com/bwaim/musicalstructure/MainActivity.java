@@ -60,8 +60,14 @@ public class MainActivity extends AppCompatActivity
         final Intent intent = getIntent();
 
         if (intent.hasExtra(SELECTED_TAB)) {
-            final int tab = intent.getExtras().getInt(SELECTED_TAB);
-            tabLayout.getTabAt(tab).select();
+            Bundle bundle = intent.getExtras();
+            if (bundle != null) {
+                final int tabIndex = bundle.getInt(SELECTED_TAB);
+                TabLayout.Tab tab = tabLayout.getTabAt(tabIndex);
+                if (tab != null) {
+                    tab.select();
+                }
+            }
         }
 
     }
