@@ -35,6 +35,7 @@ import com.bwaim.musicalstructure.Model.Song;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -50,6 +51,7 @@ public class PlayActivity extends AppCompatActivity {
     private ImageView nextIconIV;
     private ImageView previousIconIV;
     private ImageView replayIV;
+    private ImageView randomIV;
 
     private Album selectedAlbum;
     private Artist selectedArtist;
@@ -57,6 +59,8 @@ public class PlayActivity extends AppCompatActivity {
     private Song currentSong;
     private boolean isPlaying;
     private long remainingTime;
+    private boolean isPlayingRandom;
+    private Random random;
 
     private CountDownTimer countDownTimer;
 
@@ -79,6 +83,7 @@ public class PlayActivity extends AppCompatActivity {
         nextIconIV = findViewById(R.id.nextIcon);
         previousIconIV = findViewById(R.id.previousIcon);
         replayIV = findViewById(R.id.replayIcon);
+        randomIV = findViewById(R.id.randomIcon);
 
         // Get the information from the intent
         Intent intent = getIntent();
@@ -89,6 +94,8 @@ public class PlayActivity extends AppCompatActivity {
         currentSong = null;
         isPlaying = false;
         countDownTimer = initCountDownTimer(0);
+        isPlayingRandom = false;
+        random = new Random();
 
         // Get all the songs to be played, depending if we have an album or an artist
         if (selectedAlbum != null) {
@@ -206,6 +213,18 @@ public class PlayActivity extends AppCompatActivity {
             }
         });
 
+        randomIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPlayingRandom) {
+                    randomIV.setImageResource(R.drawable.ic_shuffle);
+                } else {
+                    randomIV.setImageResource(R.drawable.ic_dehaze);
+                }
+                isPlayingRandom = !isPlayingRandom;
+            }
+        });
+
     }
 
     /**
@@ -302,18 +321,23 @@ public class PlayActivity extends AppCompatActivity {
         int firstDisplayedPosition = listLV.getFirstVisiblePosition();
         listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(false);
 
-        currentPosition++;
-        // When we are at the bottom, we go back to the top
-        if (currentPosition == songs.size()) {
-            currentPosition = 0;
-            firstDisplayedPosition = 0;
-            listLV.setSelectionAfterHeaderView();
+        if (isPlayingRandom) {
+            int i = random.nextInt(listLV.getChildCount());
+            currentPosition = firstDisplayedPosition + i;
+        } else {
+            currentPosition++;
+            // When we are at the bottom, we go back to the top
+            if (currentPosition == songs.size()) {
+                currentPosition = 0;
+                firstDisplayedPosition = 0;
+                listLV.setSelectionAfterHeaderView();
+            }
         }
 
         selectSong((Song) listLV.getItemAtPosition(currentPosition));
 
         listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(true);
-        listLV.smoothScrollToPosition(currentPosition + 5 - firstDisplayedPosition);
+        listLV.smoothScrollToPosition(currentPosition + 1 - firstDisplayedPosition);
     }
 
     /**
@@ -326,12 +350,17 @@ public class PlayActivity extends AppCompatActivity {
         int firstDisplayedPosition = listLV.getFirstVisiblePosition();
         listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(false);
 
-        currentPosition--;
-        // When we are at the top, we go to the bottom of the list
-        if (currentPosition == -1) {
-            currentPosition = songs.size() - 1;
-            listLV.smoothScrollToPosition(currentPosition);
-            firstDisplayedPosition = listLV.getFirstVisiblePosition();
+        if (isPlayingRandom) {
+            int i = random.nextInt(listLV.getChildCount());
+            currentPosition = firstDisplayedPosition + i;
+        } else {
+            currentPosition--;
+            // When we are at the top, we go to the bottom of the list
+            if (currentPosition == -1) {
+                currentPosition = songs.size() - 1;
+                listLV.smoothScrollToPosition(currentPosition);
+                firstDisplayedPosition = listLV.getFirstVisiblePosition();
+            }
         }
 
         selectSong((Song) listLV.getItemAtPosition(currentPosition));
@@ -339,7 +368,7 @@ public class PlayActivity extends AppCompatActivity {
         // Trick because when going too the last element of the list, the View item doesn't exists
         if (currentPosition <= listLV.getLastVisiblePosition()) {
             listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(true);
-            listLV.smoothScrollToPosition(currentPosition - 2 - firstDisplayedPosition);
+            listLV.smoothScrollToPosition(currentPosition - 1 - firstDisplayedPosition);
         }
     }
 
