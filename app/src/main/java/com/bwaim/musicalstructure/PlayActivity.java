@@ -48,6 +48,7 @@ public class PlayActivity extends AppCompatActivity {
     private ImageView playStopIV;
     private SeekBar seekBar;
     private ImageView nextIconIV;
+    private ImageView previousIconIV;
 
     private Album selectedAlbum;
     private Artist selectedArtist;
@@ -55,6 +56,7 @@ public class PlayActivity extends AppCompatActivity {
     private Song currentSong;
     private boolean isPlaying;
     private long remainingTime;
+    private boolean isScrolling;
 
     private CountDownTimer countDownTimer;
 
@@ -75,6 +77,7 @@ public class PlayActivity extends AppCompatActivity {
         playStopIV = findViewById(R.id.playStopIcon);
         seekBar = findViewById(R.id.seekBar);
         nextIconIV = findViewById(R.id.nextIcon);
+        previousIconIV = findViewById(R.id.previousIcon);
 
         // Get the information from the intent
         Intent intent = getIntent();
@@ -84,6 +87,7 @@ public class PlayActivity extends AppCompatActivity {
         // Init variables
         currentSong = null;
         isPlaying = false;
+        isScrolling = false;
         countDownTimer = initCountDownTimer(0);
 
         // Get all the songs to be played, depending if we have an album or an artist
@@ -188,6 +192,13 @@ public class PlayActivity extends AppCompatActivity {
             }
         });
 
+        previousIconIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                previousSong();
+            }
+        });
+
     }
 
     /**
@@ -285,6 +296,7 @@ public class PlayActivity extends AppCompatActivity {
         listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(false);
 
         currentPosition++;
+        // When we are at the bottom, we go back to the top
         if (currentPosition == songs.size()) {
             currentPosition = 0;
             firstDisplayedPosition = 0;
@@ -308,15 +320,20 @@ public class PlayActivity extends AppCompatActivity {
         listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(false);
 
         currentPosition--;
+        // When we are at the top, we go to the bottom of the list
         if (currentPosition == -1) {
             currentPosition = songs.size() - 1;
             listLV.smoothScrollToPosition(currentPosition);
             firstDisplayedPosition = listLV.getFirstVisiblePosition();
+            isScrolling = true;
         }
 
         selectSong((Song) listLV.getItemAtPosition(currentPosition));
 
-        listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(true);
-        listLV.smoothScrollToPosition(currentPosition - 5 - firstDisplayedPosition);
+        // Trick because when going too the last element of the list, the View item doesn't exists
+        if (currentPosition <= listLV.getLastVisiblePosition()) {
+            listLV.getChildAt(currentPosition - firstDisplayedPosition).setSelected(true);
+            listLV.smoothScrollToPosition(currentPosition - 2 - firstDisplayedPosition);
+        }
     }
 }
