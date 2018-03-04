@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
 
     public static final String SELECTED_ALBUM = "SELECTED_ALBUM";
     public static final String SELECTED_ARTIST = "SELECTED_ARTIST";
+    public static final String SELECTED_TAB = "SELECTED_TAB";
 
     private MusicPagerAdapter musicPagerAdapter;
     private ViewPager viewPager;
@@ -55,6 +56,13 @@ public class MainActivity extends AppCompatActivity
 
         tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
+
+        final Intent intent = getIntent();
+
+        if (intent.hasExtra(SELECTED_TAB)) {
+            final int tab = intent.getExtras().getInt(SELECTED_TAB);
+            tabLayout.getTabAt(tab).select();
+        }
 
     }
 

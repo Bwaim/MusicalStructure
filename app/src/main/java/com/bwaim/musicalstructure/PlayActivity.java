@@ -19,6 +19,8 @@ package com.bwaim.musicalstructure;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -61,6 +63,7 @@ public class PlayActivity extends AppCompatActivity {
     private long remainingTime;
     private boolean isPlayingRandom;
     private Random random;
+    private int parentTab;
 
     private CountDownTimer countDownTimer;
 
@@ -105,6 +108,8 @@ public class PlayActivity extends AppCompatActivity {
 
             coverIV.setImageResource(getResources().getIdentifier(
                     selectedAlbum.getCover(), "drawable", getPackageName()));
+
+            parentTab = 0;
         } else if (selectedArtist != null) {
             songs = new ArrayList<>();
 
@@ -116,6 +121,8 @@ public class PlayActivity extends AppCompatActivity {
 
             coverIV.setImageResource(getResources().getIdentifier(
                     selectedArtist.getPhoto(), "drawable", getPackageName()));
+
+            parentTab = 1;
         }
 
         // Fill the list of songs
@@ -225,6 +232,27 @@ public class PlayActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * Obtain an {@link Intent} that will launch an explicit target activity
+     * specified by sourceActivity's {@link NavUtils#PARENT_ACTIVITY} &lt;meta-data&gt;
+     * element in the application's manifest. If the device is running
+     * Jellybean or newer, the android:parentActivityName attribute will be preferred
+     * if it is present.
+     *
+     * @return a new Intent targeting the defined parent activity of sourceActivity
+     */
+    @Nullable
+    @Override
+    public Intent getSupportParentActivityIntent() {
+        final Intent intent = super.getSupportParentActivityIntent();
+        final Bundle bundle = new Bundle();
+
+        bundle.putInt(MainActivity.SELECTED_TAB, parentTab);
+        intent.putExtras(bundle);
+
+        return intent;
     }
 
     /**
