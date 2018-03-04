@@ -49,6 +49,7 @@ public class PlayActivity extends AppCompatActivity {
     private SeekBar seekBar;
     private ImageView nextIconIV;
     private ImageView previousIconIV;
+    private ImageView replayIV;
 
     private Album selectedAlbum;
     private Artist selectedArtist;
@@ -56,7 +57,6 @@ public class PlayActivity extends AppCompatActivity {
     private Song currentSong;
     private boolean isPlaying;
     private long remainingTime;
-    private boolean isScrolling;
 
     private CountDownTimer countDownTimer;
 
@@ -78,6 +78,7 @@ public class PlayActivity extends AppCompatActivity {
         seekBar = findViewById(R.id.seekBar);
         nextIconIV = findViewById(R.id.nextIcon);
         previousIconIV = findViewById(R.id.previousIcon);
+        replayIV = findViewById(R.id.replayIcon);
 
         // Get the information from the intent
         Intent intent = getIntent();
@@ -87,7 +88,6 @@ public class PlayActivity extends AppCompatActivity {
         // Init variables
         currentSong = null;
         isPlaying = false;
-        isScrolling = false;
         countDownTimer = initCountDownTimer(0);
 
         // Get all the songs to be played, depending if we have an album or an artist
@@ -196,6 +196,13 @@ public class PlayActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 previousSong();
+            }
+        });
+
+        replayIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectSong(currentSong);
             }
         });
 
@@ -325,7 +332,6 @@ public class PlayActivity extends AppCompatActivity {
             currentPosition = songs.size() - 1;
             listLV.smoothScrollToPosition(currentPosition);
             firstDisplayedPosition = listLV.getFirstVisiblePosition();
-            isScrolling = true;
         }
 
         selectSong((Song) listLV.getItemAtPosition(currentPosition));
@@ -336,4 +342,5 @@ public class PlayActivity extends AppCompatActivity {
             listLV.smoothScrollToPosition(currentPosition - 2 - firstDisplayedPosition);
         }
     }
+
 }
