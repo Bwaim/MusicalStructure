@@ -44,9 +44,12 @@ import java.util.Random;
 
 public class PlayActivity extends AppCompatActivity {
 
+    private static final String REMAINING_TIME = "REMAINING_TIME";
+    private static final String IS_PLAYING = "IS_PLAYING";
+    private static final String IS_PLAYING_RANDOM = "IS_PLAYING_RANDOM";
+    private static final String CURRENT_SONG_POS = "CURRENT_SONG_POS";
     // Interval to refresh the countDownTimer in milliseconds
     private final long TIMER_INTERVAL = 1000;
-
     private TextView elapsedTimeTV;
     private TextView remainingTimeTV;
     private ImageView coverIV;
@@ -104,14 +107,11 @@ public class PlayActivity extends AppCompatActivity {
         isPlayingRandom = false;
         random = new Random();
         mediaPlayer = null;
-//        mediaPlayer = new MediaPlayer();
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
-//                    .setUsage(AudioAttributes.USAGE_MEDIA)
-//                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build());
-//        } else {
-//            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//        }
+
+        int currentSongPos = 0;
+        if (savedInstanceState != null) {
+            currentSongPos = savedInstanceState.getInt(CURRENT_SONG_POS);
+        }
 
         // Get all the songs to be played, depending if we have an album or an artist
         if (selectedAlbum != null) {
@@ -144,7 +144,7 @@ public class PlayActivity extends AppCompatActivity {
         listLV.setAdapter(songAdapter);
         listLV.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
-        selectSong((Song) listLV.getItemAtPosition(0));
+        selectSong((Song) listLV.getItemAtPosition(currentSongPos));
 
         // Set the listeners
         listLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -254,6 +254,19 @@ public class PlayActivity extends AppCompatActivity {
             }
         });
 
+        if (savedInstanceState != null) {
+            remainingTime = savedInstanceState.getLong(REMAINING_TIME);
+            countDownTimer = initCountDownTimer(remainingTime);
+
+            isPlayingRandom = savedInstanceState.getBoolean(IS_PLAYING_RANDOM);
+            if (isPlayingRandom) {
+                randomIV.setImageResource(R.drawable.ic_dehaze);
+            }
+
+            if (savedInstanceState.getBoolean(IS_PLAYING)) {
+                playPause();
+            }
+        }
     }
 
     @Override
@@ -264,6 +277,15 @@ public class PlayActivity extends AppCompatActivity {
             mediaPlayer.release();
             mediaPlayer = null;
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(REMAINING_TIME, remainingTime);
+        outState.putBoolean(IS_PLAYING, isPlaying);
+        outState.putBoolean(IS_PLAYING_RANDOM, isPlayingRandom);
+        outState.putInt(CURRENT_SONG_POS, songs.indexOf(currentSong));
     }
 
     /**
