@@ -29,6 +29,8 @@
         <item name="tabBackground">@color/colorPrimary</item>
         <item name="tabSelectedTextColor">@color/colorAccent</item>
         <item name="tabTextAppearance">@style/MyTabTextAppearance</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMaxWidth">@dimen/zero</item>
     </style>
 
     <style name="MyTabTextAppearance" parent="TextAppearance.Design.Tab">

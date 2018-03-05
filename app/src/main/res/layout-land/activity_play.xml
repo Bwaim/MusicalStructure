@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~    Copyright 2018 Fabien Boismoreau
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    tools:context="com.bwaim.musicalstructure.PlayActivity">
+
+    <RelativeLayout
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            android:alpha="0.75"
+            android:contentDescription="@string/albumCover"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/mon_laferte_vol_1" />
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightPrimaryColor"
+            android:paddingBottom="@dimen/listTopBottomPadding"
+            android:paddingTop="@dimen/listTopBottomPadding"
+            tools:listitem="@layout/song_item" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/zero"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingBottom="@dimen/listTopBottomPadding"
+        android:paddingEnd="@dimen/itemTextPadding"
+        android:paddingStart="@dimen/itemTextPadding"
+        android:paddingTop="@dimen/listTopBottomPadding">
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/listTopBottomPadding"
+            android:paddingTop="@dimen/listTopBottomPadding"
+            android:stretchColumns="1">
+
+            <TableRow tools:ignore="UselessParent">
+
+                <TextView
+                    android:id="@+id/elapsedTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/timeZero" />
+
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/remainingTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/timeZero" />
+            </TableRow>
+
+        </TableLayout>
+
+        <ImageView
+            android:id="@+id/randomIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tableLayout"
+            android:layout_toStartOf="@id/previousIcon"
+            android:contentDescription="@string/shuffle"
+            android:src="@drawable/ic_shuffle" />
+
+        <ImageView
+            android:id="@+id/previousIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tableLayout"
+            android:layout_toStartOf="@id/playStopIcon"
+            android:contentDescription="@string/previous"
+            android:src="@drawable/ic_skip_previous" />
+
+        <ImageView
+            android:id="@+id/playStopIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tableLayout"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/play"
+            android:src="@drawable/ic_play_circle_filled" />
+
+        <ImageView
+            android:id="@+id/nextIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tableLayout"
+            android:layout_toEndOf="@id/playStopIcon"
+            android:contentDescription="@string/next"
+            android:src="@drawable/ic_skip_next" />
+
+        <ImageView
+            android:id="@+id/replayIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tableLayout"
+            android:layout_toEndOf="@id/nextIcon"
+            android:contentDescription="@string/replay"
+            android:src="@drawable/ic_replay" />
+
+    </RelativeLayout>
+
+</LinearLayout>
