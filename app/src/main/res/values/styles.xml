@@ -25,6 +25,14 @@
 
     </style>
 
+    <style name="AppThemeNoBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
     <style name="MyTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabBackground">@color/colorPrimary</item>
         <item name="tabSelectedTextColor">@color/colorAccent</item>
