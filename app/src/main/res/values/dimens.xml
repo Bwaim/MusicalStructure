@@ -26,4 +26,5 @@
     <dimen name="listTopBottomPadding">8dp</dimen>
     <dimen name="itemTopPadding">8dp</dimen>
     <dimen name="itemTextSize">16sp</dimen>
+    <dimen name="itemWidth">125dp</dimen>
 </resources>
