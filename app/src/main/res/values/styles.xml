@@ -39,6 +39,7 @@
         <item name="tabTextAppearance">@style/MyTabTextAppearance</item>
         <item name="tabGravity">fill</item>
         <item name="tabMaxWidth">@dimen/zero</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
     <style name="MyTabTextAppearance" parent="TextAppearance.Design.Tab">

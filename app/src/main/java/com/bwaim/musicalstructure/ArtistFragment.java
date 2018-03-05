@@ -37,7 +37,6 @@ import com.bwaim.musicalstructure.dummy.DummyContent;
  */
 public class ArtistFragment extends Fragment {
 
-    @SuppressWarnings("unused")
     private OnArtistSelectedListener mListener;
 
     /**
@@ -80,6 +79,7 @@ public class ArtistFragment extends Fragment {
         // {@link ListView} will display list items for each {@link Artist} in the list.
         gridView.setAdapter(adapter);
 
+        // Pass data to the Activity
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -120,7 +120,6 @@ public class ArtistFragment extends Fragment {
      */
     public interface OnArtistSelectedListener {
 
-        @SuppressWarnings("unused")
         void onArtistSelected(Artist artist);
     }
 }

@@ -69,7 +69,6 @@ public class PlayActivity extends AppCompatActivity {
     private long remainingTime;
     private boolean isPlayingRandom;
     private Random random;
-    private int parentTab;
     private MediaPlayer mediaPlayer;
 
     private CountDownTimer countDownTimer;
@@ -79,6 +78,7 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        // For the up navigation
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -122,7 +122,6 @@ public class PlayActivity extends AppCompatActivity {
             coverIV.setImageResource(getResources().getIdentifier(
                     selectedAlbum.getCover(), "drawable", getPackageName()));
 
-            parentTab = 0;
         } else if (selectedArtist != null) {
             songs = new ArrayList<>();
 
@@ -135,7 +134,6 @@ public class PlayActivity extends AppCompatActivity {
             coverIV.setImageResource(getResources().getIdentifier(
                     selectedArtist.getPhoto(), "drawable", getPackageName()));
 
-            parentTab = 1;
         }
 
         // Fill the list of songs
@@ -178,6 +176,7 @@ public class PlayActivity extends AppCompatActivity {
              */
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // Refresh the time displayed
                 remainingTime = (currentSong.getDuration() - seekBar.getProgress())
                         * TIMER_INTERVAL;
                 refreshTime();
@@ -207,6 +206,7 @@ public class PlayActivity extends AppCompatActivity {
                         seekBar.getProgress()) * TIMER_INTERVAL);
                 countDownTimer.onTick(remainingTime);
 
+                // seek function doesn't works
                 if (mediaPlayer != null && isPlaying) {
                     if (Build.VERSION.SDK_INT >= 26) {
                         mediaPlayer.seekTo(seekBar.getProgress() * 1000, MediaPlayer.SEEK_CLOSEST);
@@ -264,6 +264,7 @@ public class PlayActivity extends AppCompatActivity {
             }
 
             if (savedInstanceState.getBoolean(IS_PLAYING)) {
+                // this will update isPlaying to true
                 playPause();
             }
         }
@@ -305,15 +306,7 @@ public class PlayActivity extends AppCompatActivity {
             mediaPlayer = null;
         }
 
-        final Intent intent = super.getSupportParentActivityIntent();
-        final Bundle bundle = new Bundle();
-
-        bundle.putInt(MainActivity.SELECTED_TAB, parentTab);
-        if (intent != null) {
-            intent.putExtras(bundle);
-        }
-
-        return intent;
+        return super.getSupportParentActivityIntent();
     }
 
     /**

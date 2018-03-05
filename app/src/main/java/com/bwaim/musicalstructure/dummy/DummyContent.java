@@ -21,9 +21,7 @@ import com.bwaim.musicalstructure.Model.Artist;
 import com.bwaim.musicalstructure.Model.Song;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -37,11 +35,6 @@ public class DummyContent {
      */
     public static final List<Album> ITEMS_ALBUMS = new ArrayList<>();
     public static final List<Artist> ITEMS_ARTISTS = new ArrayList<>();
-
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
-    public static final Map<String, Album> ITEM_MAP = new HashMap<>();
 
     private static final int COUNT = 1;
 
@@ -185,7 +178,6 @@ public class DummyContent {
         florentPagny.addAlbum(lePresentDabord);
 
         for (int i = 1; i <= COUNT; i++) {
-//            addItem(createDummyItem(i));
             addItem(monLaferteVol1, monLaferte);
             addItem(laTrenza, null);
             addItem(vousEtMoi, julienDore);
@@ -202,23 +194,5 @@ public class DummyContent {
         if (artist != null) {
             ITEMS_ARTISTS.add(artist);
         }
-//        ITEM_MAP.put(item.id, item);
-    }
-
-    @SuppressWarnings("unused")
-    private static Album createDummyItem(int position) {
-        return new Album("Name " + position,
-                new Artist("Artist " + position, "mon_laferte"),
-                "mon_laferte_vol_1");
-    }
-
-    @SuppressWarnings("unused")
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
     }
 }

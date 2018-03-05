@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity
 
     public static final String SELECTED_ALBUM = "SELECTED_ALBUM";
     public static final String SELECTED_ARTIST = "SELECTED_ARTIST";
-    public static final String SELECTED_TAB = "SELECTED_TAB";
 
     private MusicPagerAdapter musicPagerAdapter;
     private ViewPager viewPager;
@@ -43,11 +42,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // To remove the shadow
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setElevation(0);
         }
 
+        // Create the tabs
         musicPagerAdapter = new MusicPagerAdapter(getSupportFragmentManager());
         musicPagerAdapter.setPageTitles(initPagesTitles());
 
@@ -56,20 +57,6 @@ public class MainActivity extends AppCompatActivity
 
         tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
-
-        final Intent intent = getIntent();
-
-        if (intent.hasExtra(SELECTED_TAB)) {
-            Bundle bundle = intent.getExtras();
-            if (bundle != null) {
-                final int tabIndex = bundle.getInt(SELECTED_TAB);
-                TabLayout.Tab tab = tabLayout.getTabAt(tabIndex);
-                if (tab != null) {
-                    tab.select();
-                }
-            }
-        }
-
     }
 
     private String[] initPagesTitles() {
