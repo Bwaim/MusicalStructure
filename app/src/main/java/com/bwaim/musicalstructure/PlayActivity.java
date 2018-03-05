@@ -17,6 +17,8 @@
 package com.bwaim.musicalstructure;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -30,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bwaim.musicalstructure.Model.Album;
 import com.bwaim.musicalstructure.Model.Artist;
@@ -64,6 +67,7 @@ public class PlayActivity extends AppCompatActivity {
     private boolean isPlayingRandom;
     private Random random;
     private int parentTab;
+    private MediaPlayer mediaPlayer;
 
     private CountDownTimer countDownTimer;
 
@@ -99,6 +103,15 @@ public class PlayActivity extends AppCompatActivity {
         countDownTimer = initCountDownTimer(0);
         isPlayingRandom = false;
         random = new Random();
+        mediaPlayer = null;
+//        mediaPlayer = new MediaPlayer();
+//        if (Build.VERSION.SDK_INT >= 21) {
+//            mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
+//                    .setUsage(AudioAttributes.USAGE_MEDIA)
+//                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build());
+//        } else {
+//            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//        }
 
         // Get all the songs to be played, depending if we have an album or an artist
         if (selectedAlbum != null) {
@@ -193,6 +206,15 @@ public class PlayActivity extends AppCompatActivity {
                 countDownTimer = initCountDownTimer((currentSong.getDuration() -
                         seekBar.getProgress()) * TIMER_INTERVAL);
                 countDownTimer.onTick(remainingTime);
+
+                if (mediaPlayer != null && isPlaying) {
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        mediaPlayer.seekTo(seekBar.getProgress() * 1000, MediaPlayer.SEEK_CLOSEST);
+                    } else {
+                        mediaPlayer.seekTo(seekBar.getProgress() * 1000);
+                    }
+                }
+
                 if (isPlaying) {
                     countDownTimer.start();
                 }
@@ -234,6 +256,16 @@ public class PlayActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
+
     /**
      * Obtain an {@link Intent} that will launch an explicit target activity
      * specified by sourceActivity's {@link NavUtils#PARENT_ACTIVITY} &lt;meta-data&gt;
@@ -246,6 +278,11 @@ public class PlayActivity extends AppCompatActivity {
     @Nullable
     @Override
     public Intent getSupportParentActivityIntent() {
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+
         final Intent intent = super.getSupportParentActivityIntent();
         final Bundle bundle = new Bundle();
 
@@ -308,6 +345,15 @@ public class PlayActivity extends AppCompatActivity {
     private void selectSong(Song selection) {
         currentSong = selection;
 
+        int resIdMedia = 0;
+        if (currentSong.getMediaFile() != null) {
+            resIdMedia = getResources().getIdentifier(currentSong.getMediaFile(), "raw", getPackageName());
+        }
+
+        if (resIdMedia == 0) {
+            Toast.makeText(this, R.string.noSongFile, Toast.LENGTH_SHORT).show();
+        }
+
         countDownTimer.cancel();
 
         // initialization of the elapsed time of the current song
@@ -319,8 +365,19 @@ public class PlayActivity extends AppCompatActivity {
         seekBar.setMax(selection.getDuration());
         seekBar.setProgress(0);
 
+        if (mediaPlayer != null) {
+            mediaPlayer.reset();
+            mediaPlayer = null;
+        }
+        if (resIdMedia != 0) {
+            mediaPlayer = MediaPlayer.create(this, resIdMedia);
+        }
+
         if (isPlaying) {
             countDownTimer.start();
+            if (mediaPlayer != null) {
+                mediaPlayer.start();
+            }
         }
     }
 
@@ -332,9 +389,15 @@ public class PlayActivity extends AppCompatActivity {
         if (isPlaying) {
             playStopIV.setImageResource(R.drawable.ic_play_circle_filled);
             countDownTimer.cancel();
+            if (mediaPlayer != null) {
+                mediaPlayer.pause();
+            }
         } else {
             playStopIV.setImageResource(R.drawable.ic_pause_circle_filled);
             countDownTimer = initCountDownTimer(remainingTime);
+            if (mediaPlayer != null) {
+                mediaPlayer.start();
+            }
             countDownTimer.start();
         }
 

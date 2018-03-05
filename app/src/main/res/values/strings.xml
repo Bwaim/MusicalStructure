@@ -27,4 +27,5 @@
     <string name="replay">replay</string>
     <string name="gallery">Gallery</string>
     <string name="timeZero">00:00</string>
+    <string name="noSongFile">This song has no file to play</string>
 </resources>
