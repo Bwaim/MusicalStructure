@@ -55,15 +55,15 @@ public class AlbumAdapter extends ArrayAdapter<Album> {
         Album currentAlbum = getItem(position);
 
         if (currentAlbum != null) {
-            ImageView cover = listItemView.findViewById(R.id.cover);
-            cover.setImageResource(getContext().getResources().getIdentifier(
+            ImageView coverIV = listItemView.findViewById(R.id.cover);
+            coverIV.setImageResource(getContext().getResources().getIdentifier(
                     currentAlbum.getCover(), "drawable", getContext().getPackageName()));
 
-            TextView name = listItemView.findViewById(R.id.name_text_view);
-            name.setText(currentAlbum.getName());
+            TextView nameTV = listItemView.findViewById(R.id.name_text_view);
+            nameTV.setText(currentAlbum.getName());
 
-            TextView artist = listItemView.findViewById(R.id.artist);
-            artist.setText(currentAlbum.getArtist().getName());
+            TextView artistTV = listItemView.findViewById(R.id.artist);
+            artistTV.setText(currentAlbum.getArtist().getName());
         }
 
         return listItemView;
