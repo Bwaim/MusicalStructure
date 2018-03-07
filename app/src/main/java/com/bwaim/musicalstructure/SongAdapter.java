@@ -59,7 +59,7 @@ public class SongAdapter extends ArrayAdapter<Song> {
         Song currentSong = getItem(position);
 
         if (currentSong != null) {
-            TextView name = listItemView.findViewById(R.id.name);
+            TextView name = listItemView.findViewById(R.id.name_text_view);
             name.setText(currentSong.getName());
         }
 

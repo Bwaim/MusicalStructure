@@ -60,11 +60,11 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
         Artist currentArtist = getItem(position);
 
         if (currentArtist != null) {
-            ImageView photo = listItemView.findViewById(R.id.photo);
+            ImageView photo = listItemView.findViewById(R.id.photo_image_view);
             photo.setImageResource(getContext().getResources().getIdentifier(
                     currentArtist.getPhoto(), "drawable", getContext().getPackageName()));
 
-            TextView name = listItemView.findViewById(R.id.name);
+            TextView name = listItemView.findViewById(R.id.name_text_view);
             name.setText(currentArtist.getName());
         }
 

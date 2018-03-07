@@ -59,7 +59,7 @@ public class AlbumAdapter extends ArrayAdapter<Album> {
             cover.setImageResource(getContext().getResources().getIdentifier(
                     currentAlbum.getCover(), "drawable", getContext().getPackageName()));
 
-            TextView name = listItemView.findViewById(R.id.name);
+            TextView name = listItemView.findViewById(R.id.name_text_view);
             name.setText(currentAlbum.getName());
 
             TextView artist = listItemView.findViewById(R.id.artist);
