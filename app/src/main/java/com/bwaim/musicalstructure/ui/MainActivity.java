@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.bwaim.musicalstructure;
+package com.bwaim.musicalstructure.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,8 +23,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
-import com.bwaim.musicalstructure.Model.Album;
-import com.bwaim.musicalstructure.Model.Artist;
+import com.bwaim.musicalstructure.R;
+import com.bwaim.musicalstructure.adapters.MusicPagerAdapter;
+import com.bwaim.musicalstructure.model.Album;
+import com.bwaim.musicalstructure.model.Artist;
 
 public class MainActivity extends AppCompatActivity
         implements AlbumFragment.OnAlbumSelectedListener, ArtistFragment.OnArtistSelectedListener {

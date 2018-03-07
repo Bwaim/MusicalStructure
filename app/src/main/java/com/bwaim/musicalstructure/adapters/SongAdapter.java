@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.bwaim.musicalstructure;
+package com.bwaim.musicalstructure.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -23,28 +23,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bwaim.musicalstructure.Model.Artist;
+import com.bwaim.musicalstructure.R;
+import com.bwaim.musicalstructure.model.Song;
 
 import java.util.List;
 
 /**
- * Created by Fabien Boismoreau on 27/02/2018.
+ * Created by Fabien Boismoreau on 02/03/2018.
  * <p>
  */
 
-public class ArtistAdapter extends ArrayAdapter<Artist> {
+public class SongAdapter extends ArrayAdapter<Song> {
 
     /**
      * Constructor
      *
      * @param context The current context.
-     * @param artists The objects to represent in the ListView.
+     * @param songs The songs to represent in the ListView.
      */
-    ArtistAdapter(@NonNull Context context, @NonNull List<Artist> artists) {
-        super(context, 0, artists);
+    public SongAdapter(@NonNull Context context, @NonNull List<Song> songs) {
+        super(context, 0, songs);
     }
 
     @NonNull
@@ -54,18 +54,14 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.fragment_artist_item, parent, false);
+                    R.layout.song_item, parent, false);
         }
 
-        Artist currentArtist = getItem(position);
+        Song currentSong = getItem(position);
 
-        if (currentArtist != null) {
-            ImageView photoIV = listItemView.findViewById(R.id.photo_image_view);
-            photoIV.setImageResource(getContext().getResources().getIdentifier(
-                    currentArtist.getPhoto(), "drawable", getContext().getPackageName()));
-
+        if (currentSong != null) {
             TextView nameTV = listItemView.findViewById(R.id.name_text_view);
-            nameTV.setText(currentArtist.getName());
+            nameTV.setText(currentSong.getName());
         }
 
         return listItemView;

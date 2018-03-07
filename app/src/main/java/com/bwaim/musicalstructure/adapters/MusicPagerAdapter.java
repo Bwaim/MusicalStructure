@@ -14,12 +14,15 @@
  *    limitations under the License.
  */
 
-package com.bwaim.musicalstructure;
+package com.bwaim.musicalstructure.adapters;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.bwaim.musicalstructure.ui.AlbumFragment;
+import com.bwaim.musicalstructure.ui.ArtistFragment;
 
 /**
  * Created by Fabien Boismoreau on 25/02/2018.
@@ -28,10 +31,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class MusicPagerAdapter extends FragmentPagerAdapter {
 
-    static final int M_NB_VIEWS = 2;
+    public static final int M_NB_VIEWS = 2;
     private String[] pageTitles;
 
-    MusicPagerAdapter(FragmentManager fm) {
+    public MusicPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -59,7 +62,7 @@ public class MusicPagerAdapter extends FragmentPagerAdapter {
         return null;
     }
 
-    void setPageTitles(String[] pageTitles) {
+    public void setPageTitles(String[] pageTitles) {
         this.pageTitles = pageTitles;
     }
 

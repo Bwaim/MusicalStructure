@@ -14,32 +14,30 @@
  *    limitations under the License.
  */
 
-package com.bwaim.musicalstructure.Model;
+package com.bwaim.musicalstructure.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Created by Fabien Boismoreau on 25/02/2018.
+ * Created by Fabien Boismoreau on 27/02/2018.
  * <p>
  */
 
-public class Album implements Serializable {
+public class Artist implements Serializable {
 
     private String name;
-    private Artist artist;
-    private String cover;
-    private ArrayList<Song> songs;
+    private String photo;
+    private ArrayList<Album> albums;
 
-    public Album(String name, Artist artist, String cover) {
+    public Artist(String name, String photo) {
         this.name = name;
-        this.artist = artist;
-        this.cover = cover;
-        songs = new ArrayList<>();
+        this.photo = photo;
+        albums = new ArrayList<>();
     }
 
-    public void addSong(Song song) {
-        songs.add(song);
+    public void addAlbum(Album album) {
+        albums.add(album);
     }
 
     public String getName() {
@@ -50,27 +48,19 @@ public class Album implements Serializable {
         this.name = name;
     }
 
-    public Artist getArtist() {
-        return artist;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setArtist(Artist artist) {
-        this.artist = artist;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-    public ArrayList<Song> getSongs() {
-        return songs;
+    public ArrayList<Album> getAlbums() {
+        return albums;
     }
 
-    public void setSongs(ArrayList<Song> songs) {
-        this.songs = songs;
-    }
-
-    public String getCover() {
-        return cover;
-    }
-
-    public void setCover(String cover) {
-        this.cover = cover;
+    public void setAlbums(ArrayList<Album> albums) {
+        this.albums = albums;
     }
 }

@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.bwaim.musicalstructure.ui.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppThemeNoBar">
             <intent-filter>
@@ -34,8 +34,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PlayActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.bwaim.musicalstructure.ui.PlayActivity"
+            android:parentActivityName="com.bwaim.musicalstructure.ui.MainActivity" />
     </application>
 
 </manifest>

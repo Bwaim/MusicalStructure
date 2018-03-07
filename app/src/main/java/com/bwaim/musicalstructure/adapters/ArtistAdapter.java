@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.bwaim.musicalstructure;
+package com.bwaim.musicalstructure.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -26,20 +26,26 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bwaim.musicalstructure.Model.Album;
+import com.bwaim.musicalstructure.R;
+import com.bwaim.musicalstructure.model.Artist;
 
 import java.util.List;
 
-public class AlbumAdapter extends ArrayAdapter<Album> {
+/**
+ * Created by Fabien Boismoreau on 27/02/2018.
+ * <p>
+ */
+
+public class ArtistAdapter extends ArrayAdapter<Artist> {
 
     /**
      * Constructor
      *
      * @param context The current context.
-     * @param albums  The objects to represent in the ListView.
+     * @param artists The objects to represent in the ListView.
      */
-    AlbumAdapter(@NonNull Context context, @NonNull List<Album> albums) {
-        super(context, 0, albums);
+    public ArtistAdapter(@NonNull Context context, @NonNull List<Artist> artists) {
+        super(context, 0, artists);
     }
 
     @NonNull
@@ -49,21 +55,18 @@ public class AlbumAdapter extends ArrayAdapter<Album> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.fragment_album_item, parent, false);
+                    R.layout.fragment_artist_item, parent, false);
         }
 
-        Album currentAlbum = getItem(position);
+        Artist currentArtist = getItem(position);
 
-        if (currentAlbum != null) {
-            ImageView coverIV = listItemView.findViewById(R.id.cover);
-            coverIV.setImageResource(getContext().getResources().getIdentifier(
-                    currentAlbum.getCover(), "drawable", getContext().getPackageName()));
+        if (currentArtist != null) {
+            ImageView photoIV = listItemView.findViewById(R.id.photo_image_view);
+            photoIV.setImageResource(getContext().getResources().getIdentifier(
+                    currentArtist.getPhoto(), "drawable", getContext().getPackageName()));
 
             TextView nameTV = listItemView.findViewById(R.id.name_text_view);
-            nameTV.setText(currentAlbum.getName());
-
-            TextView artistTV = listItemView.findViewById(R.id.artist);
-            artistTV.setText(currentAlbum.getArtist().getName());
+            nameTV.setText(currentArtist.getName());
         }
 
         return listItemView;

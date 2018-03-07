@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.bwaim.musicalstructure;
+package com.bwaim.musicalstructure.ui;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -34,9 +34,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bwaim.musicalstructure.Model.Album;
-import com.bwaim.musicalstructure.Model.Artist;
-import com.bwaim.musicalstructure.Model.Song;
+import com.bwaim.musicalstructure.R;
+import com.bwaim.musicalstructure.adapters.SongAdapter;
+import com.bwaim.musicalstructure.model.Album;
+import com.bwaim.musicalstructure.model.Artist;
+import com.bwaim.musicalstructure.model.Song;
 
 import java.util.ArrayList;
 import java.util.Locale;

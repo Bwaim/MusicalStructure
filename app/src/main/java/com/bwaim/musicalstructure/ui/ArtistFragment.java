@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.bwaim.musicalstructure;
+package com.bwaim.musicalstructure.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -26,28 +26,36 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.bwaim.musicalstructure.Model.Album;
+import com.bwaim.musicalstructure.R;
+import com.bwaim.musicalstructure.adapters.ArtistAdapter;
 import com.bwaim.musicalstructure.dummy.DummyContent;
+import com.bwaim.musicalstructure.model.Artist;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnAlbumSelectedListener}
+ * Activities containing this fragment MUST implement the {@link OnArtistSelectedListener}
  * interface.
  */
-public class AlbumFragment extends Fragment {
+public class ArtistFragment extends Fragment {
 
-    private OnAlbumSelectedListener mListener;
+    private OnArtistSelectedListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public AlbumFragment() {
+    public ArtistFragment() {
     }
 
-    public static AlbumFragment newInstance() {
-        return new AlbumFragment();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @return A new instance of fragment ArtistFragment.
+     */
+    public static ArtistFragment newInstance() {
+        return new ArtistFragment();
     }
 
     @Override
@@ -60,40 +68,39 @@ public class AlbumFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
-        // Create an {@link AlbumAdapter}, whose data source is a list of {@link Album}s. The
+        // Create an {@link ArtistAdapter}, whose data source is a list of {@link Artist}s. The
         // adapter knows how to create list items for each item in the list.
-        AlbumAdapter adapter = new AlbumAdapter(view.getContext(), DummyContent.ITEMS_ALBUMS);
+        ArtistAdapter adapter = new ArtistAdapter(view.getContext(), DummyContent.ITEMS_ARTISTS);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
         // activity_numbers.xml layout file.
         GridView gridView = view.findViewById(R.id.list);
 
-        // Make the {@link ListView} use the {@link AlbumAdapter} we created above, so that the
-        // {@link ListView} will display list items for each {@link Album} in the list.
+        // Make the {@link ListView} use the {@link ArtistAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link Artist} in the list.
         gridView.setAdapter(adapter);
 
         // Pass data to the Activity
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Album selectedAlbum = DummyContent.ITEMS_ALBUMS.get(position);
-                mListener.onAlbumSelected(selectedAlbum);
+                Artist selectedArtist = DummyContent.ITEMS_ARTISTS.get(position);
+                mListener.onArtistSelected(selectedArtist);
             }
         });
 
         return view;
     }
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnAlbumSelectedListener) {
-            mListener = (OnAlbumSelectedListener) context;
+        if (context instanceof OnArtistSelectedListener) {
+            mListener = (OnArtistSelectedListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnAlbumSelectedListener");
+                    + " must implement OnArtistSelectedListener");
         }
     }
 
@@ -108,13 +115,13 @@ public class AlbumFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnAlbumSelectedListener {
+    public interface OnArtistSelectedListener {
 
-        void onAlbumSelected(Album album);
+        void onArtistSelected(Artist artist);
     }
 }

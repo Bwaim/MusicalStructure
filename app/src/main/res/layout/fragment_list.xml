@@ -25,5 +25,5 @@
     android:numColumns="auto_fit"
     android:padding="@dimen/gridListPadding"
     android:verticalSpacing="@dimen/gridListPadding"
-    tools:context="com.bwaim.musicalstructure.AlbumFragment"
+    tools:context="com.bwaim.musicalstructure.ui.AlbumFragment"
     tools:listitem="@layout/fragment_album_item" />

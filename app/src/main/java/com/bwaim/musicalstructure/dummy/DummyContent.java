@@ -16,9 +16,9 @@
 
 package com.bwaim.musicalstructure.dummy;
 
-import com.bwaim.musicalstructure.Model.Album;
-import com.bwaim.musicalstructure.Model.Artist;
-import com.bwaim.musicalstructure.Model.Song;
+import com.bwaim.musicalstructure.model.Album;
+import com.bwaim.musicalstructure.model.Artist;
+import com.bwaim.musicalstructure.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;

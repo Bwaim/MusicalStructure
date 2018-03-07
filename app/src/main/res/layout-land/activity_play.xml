@@ -20,7 +20,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="horizontal"
-    tools:context="com.bwaim.musicalstructure.PlayActivity">
+    tools:context="com.bwaim.musicalstructure.ui.PlayActivity">
 
     <RelativeLayout
         android:layout_width="@dimen/zero"

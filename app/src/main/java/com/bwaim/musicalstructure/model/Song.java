@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.bwaim.musicalstructure.Model;
+package com.bwaim.musicalstructure.model;
 
 import java.io.Serializable;
 
