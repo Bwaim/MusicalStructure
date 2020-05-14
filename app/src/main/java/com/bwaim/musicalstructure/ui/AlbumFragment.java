@@ -18,13 +18,14 @@ package com.bwaim.musicalstructure.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.bwaim.musicalstructure.R;
 import com.bwaim.musicalstructure.adapters.AlbumAdapter;
@@ -89,7 +90,7 @@ public class AlbumFragment extends Fragment {
 
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnAlbumSelectedListener) {
             mListener = (OnAlbumSelectedListener) context;

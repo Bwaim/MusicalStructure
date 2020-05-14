@@ -16,10 +16,11 @@
 
 package com.bwaim.musicalstructure.adapters;
 
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.bwaim.musicalstructure.ui.AlbumFragment;
 import com.bwaim.musicalstructure.ui.ArtistFragment;
@@ -51,6 +52,7 @@ public class MusicPagerAdapter extends FragmentPagerAdapter {
      *
      * @param position to display
      */
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         switch (position) {
@@ -59,7 +61,7 @@ public class MusicPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return ArtistFragment.newInstance();
         }
-        return null;
+        throw new IllegalStateException();
     }
 
     public void setPageTitles(String[] pageTitles) {

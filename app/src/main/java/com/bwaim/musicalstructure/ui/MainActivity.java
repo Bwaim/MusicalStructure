@@ -18,15 +18,16 @@ package com.bwaim.musicalstructure.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bwaim.musicalstructure.R;
 import com.bwaim.musicalstructure.adapters.MusicPagerAdapter;
 import com.bwaim.musicalstructure.model.Album;
 import com.bwaim.musicalstructure.model.Artist;
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity
         implements AlbumFragment.OnAlbumSelectedListener, ArtistFragment.OnArtistSelectedListener {
