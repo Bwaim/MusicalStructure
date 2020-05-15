@@ -21,13 +21,14 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bwaim.musicalstructure.R;
 import com.bwaim.musicalstructure.adapters.MusicPagerAdapter;
 import com.bwaim.musicalstructure.model.Album;
 import com.bwaim.musicalstructure.model.Artist;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity
         implements AlbumFragment.OnAlbumSelectedListener, ArtistFragment.OnArtistSelectedListener {
@@ -35,8 +36,10 @@ public class MainActivity extends AppCompatActivity
     public static final String SELECTED_ALBUM = "SELECTED_ALBUM";
     public static final String SELECTED_ARTIST = "SELECTED_ARTIST";
 
+    private String[] pageTitles = new String[MusicPagerAdapter.M_NB_VIEWS];
+
     private MusicPagerAdapter musicPagerAdapter;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager;
     private TabLayout tabLayout;
 
 
@@ -52,18 +55,20 @@ public class MainActivity extends AppCompatActivity
         }
 
         // Create the tabs
-        musicPagerAdapter = new MusicPagerAdapter(getSupportFragmentManager());
-        musicPagerAdapter.setPageTitles(initPagesTitles());
+        musicPagerAdapter = new MusicPagerAdapter(this);
+        initPagesTitles();
 
         viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(musicPagerAdapter);
 
         tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(viewPager);
+        new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> tab.setText(pageTitles[position])
+        ).attach();
     }
 
     private String[] initPagesTitles() {
-        String[] pageTitles = new String[MusicPagerAdapter.M_NB_VIEWS];
+
         pageTitles[0] = getResources().getString(R.string.albums);
         pageTitles[1] = getResources().getString(R.string.artists);
         return pageTitles;

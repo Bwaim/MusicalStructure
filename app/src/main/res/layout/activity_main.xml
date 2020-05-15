@@ -14,19 +14,22 @@
   ~    limitations under the License.
   -->
 
-<androidx.viewpager.widget.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bwaim.musicalstructure.ui.MainActivity">
+    android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         style="@style/MyTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tabHeight">
+        android:layout_height="@dimen/tabHeight" />
 
-    </com.google.android.material.tabs.TabLayout>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.bwaim.musicalstructure.ui.MainActivity" />
 
-</androidx.viewpager.widget.ViewPager>
+</LinearLayout>

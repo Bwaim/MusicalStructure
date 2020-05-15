@@ -17,10 +17,9 @@
 package com.bwaim.musicalstructure.adapters;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.bwaim.musicalstructure.ui.AlbumFragment;
 import com.bwaim.musicalstructure.ui.ArtistFragment;
@@ -30,20 +29,19 @@ import com.bwaim.musicalstructure.ui.ArtistFragment;
  * <p>The PageAdapter needed by the ViewPager
  */
 
-public class MusicPagerAdapter extends FragmentPagerAdapter {
+public class MusicPagerAdapter extends FragmentStateAdapter {
 
     public static final int M_NB_VIEWS = 2;
-    private String[] pageTitles;
 
-    public MusicPagerAdapter(FragmentManager fm) {
-        super(fm);
+    public MusicPagerAdapter(FragmentActivity activity) {
+        super(activity);
     }
 
     /**
      * Return the number of views available.
      */
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return M_NB_VIEWS;
     }
 
@@ -54,7 +52,7 @@ public class MusicPagerAdapter extends FragmentPagerAdapter {
      */
     @NonNull
     @Override
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
         switch (position) {
             case 0:
                 return AlbumFragment.newInstance();
@@ -62,27 +60,5 @@ public class MusicPagerAdapter extends FragmentPagerAdapter {
                 return ArtistFragment.newInstance();
         }
         throw new IllegalStateException();
-    }
-
-    public void setPageTitles(String[] pageTitles) {
-        this.pageTitles = pageTitles;
-    }
-
-    /**
-     * This method may be called by the ViewPager to obtain a title string
-     * to describe the specified page. This method may return null
-     * indicating no title for this page. The default implementation returns
-     * null.
-     *
-     * @param position The position of the title requested
-     * @return A title for the requested page
-     */
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        if (position < M_NB_VIEWS) {
-            return pageTitles[position];
-        }
-        return null;
     }
 }
